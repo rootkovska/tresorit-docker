@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  tresorit-personal:
+    image: tresorit
+    volumes:
+      - ~/Tresors/profiles/tresorit/tresorit-profile-personal:/home/tresorit/Profiles/
+      - ~/vols/personal:/vols
+
+  tresorit-work:
+    image: tresorit
+    volumes:
+      - ~/Tresors/profiles/tresorit/tresorit-profile-work:/home/tresorit/Profiles/
+      - ~/vols/work:/vols
