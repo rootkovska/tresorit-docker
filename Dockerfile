@@ -2,20 +2,33 @@ FROM ubuntu:18.04
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get install -y \
-    curl
+    curl xxd
 
-RUN useradd --create-home --shell /bin/bash --user-group --groups adm,sudo tresorit
-USER tresorit
+COPY check_signature.sh /home/tresorit/
+RUN chmod +x /home/tresorit/check_signature.sh
+RUN useradd --create-home --shell /bin/bash \
+            --user-group --groups adm,sudo tresorit
 WORKDIR /home/tresorit
+RUN chown tresorit /home/tresorit
 
-RUN curl -LO https://installerstorage.blob.core.windows.net/public/install/tresorit_installer.run && \
+RUN cd /home/tresorit && \
+    curl -LO https://installerstorage.blob.core.windows.net/public/install/tresorit_installer.run && \
+    ls -al /home/tresorit/ && \ 
+    /home/tresorit/check_signature.sh && \
     chmod +x ./tresorit_installer.run && \
-    echo "N " | ./tresorit_installer.run --update-v2 . && \
-    rm ./tresorit_installer.run && \
-    mkdir -p /home/tresorit/Profiles \
+    echo "Tresorit installer image downloaded & verified ok."
+
+USER tresorit
+    
+# The --update-v2 <dir> sets the dest installation dir:
+RUN  ./tresorit_installer.run --update-v2 . && \
+     echo "Tresorit installed ok."
+
+RUN mkdir -p /home/tresorit/Profiles \
              /home/tresorit/external
 
-VOLUME /home/tresorit/Profiles /home/tresorit/external
+VOLUME /home/tresorit/Profiles /vols
+
 USER root
 
 COPY start.sh /usr/local/bin/start
