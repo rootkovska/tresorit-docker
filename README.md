@@ -21,7 +21,9 @@ docker-compose exec tresorit-personal bash
 
 ## Manual docker run & sync:
 
+```
 docker run -it \
   -v ~/myprofiles/tresorit:/home/tresorit/Profiles/ \
   -v ~/vols/tresorit/:/vols \
   tresorit
+```
