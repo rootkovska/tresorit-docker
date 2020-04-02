@@ -1,6 +1,6 @@
-# Tresor in a docker
+# Tresorit in a docker
 
-A Tresorit client in a docker. Useful for persons having multiple Tresorit accounts (e.g.: one personal and another from work), as the Tresorit default client allows syncing/managing only one account per one desktop session. Also useful for scripts running on servers and other headless devices.
+A [Tresorit](https://tresorit.com) client in a docker. Useful for persons having multiple Tresorit accounts (e.g.: one personal and another from work), as the Tresorit default client allows syncing/managing only one account per one desktop session. Also useful for scripts running on servers and other headless devices.
 
 ## Build and deploy
 
